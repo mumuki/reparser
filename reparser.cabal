@@ -1,0 +1,76 @@
+name:                reparser
+version:             0.1.0.0
+synopsis:            Short description of your package
+homepage:            https://github.com/mumuki/reparser
+license:             BSD3
+license-file:        LICENSE
+author:              Franco Leonardo Bulgarelli
+maintainer:          franco@mumuki.org
+copyright:           2017 Franco Leonardo Bulgarelli
+category:            Text
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+-- To avoid duplicated efforts in documentation and dealing with the
+-- complications of embedding Haddock markup inside cabal files, it is
+-- common to point users to the README.md file.
+description:         Please see the README on Github at <https://github.com/mumuki/reparser>
+
+library
+  hs-source-dirs:      src
+  exposed-modules:
+    Text.Reparser
+  build-depends:
+    base                  >= 4.7 && < 5,
+    parsec                ,
+    ParsecTools
+  default-language:    Haskell2010
+
+executable reparser-exe
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:
+   -threaded
+   -with-rtsopts=-N
+   -Wall
+   -fno-warn-missing-signatures
+   -fno-warn-unused-do-bind
+   -fno-warn-orphans
+   -fno-warn-name-shadowing
+   -fno-warn-incomplete-patterns
+   -fno-warn-missing-pattern-synonym-signatures
+   -fwarn-tabs
+   -funbox-strict-fields
+   -O
+  build-depends:       base
+                     , reparser
+  default-language:    Haskell2010
+
+test-suite reparser-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      spec
+  main-is:             Spec.hs
+  build-depends:
+    base                      ,
+    hspec                     ,
+    neat-interpolation        ,
+    reparser
+  ghc-options:
+   -threaded
+   -with-rtsopts=-N
+   -Wall
+   -fno-warn-missing-signatures
+   -fno-warn-unused-do-bind
+   -fno-warn-orphans
+   -fno-warn-name-shadowing
+   -fno-warn-incomplete-patterns
+   -fno-warn-missing-pattern-synonym-signatures
+   -fwarn-tabs
+   -funbox-strict-fields
+  default-language:    Haskell2010
+
+
+source-repository head
+  type:     git
+  location: https://github.com/mumuki/mulang
