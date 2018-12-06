@@ -12,19 +12,20 @@ spec = do
       split "" `shouldBe` Right []
 
     it "splits begin..end string" $ do
-      split "/*<begin#*/strings/*#end>*/" `shouldBe` Right ["strings"]
+      split "/*<foo#*/strings/*#end>*/" `shouldBe` Right [["foo", "strings"]]
 
     it "splits begin..end string with trailing content" $ do
-      split "/*<begin#*/strings/*#end>*/trailing" `shouldBe` Right ["strings"]
+      split "/*<foo#*/strings/*#end>*/trailing" `shouldBe` Right [["foo", "strings"]]
 
     it "splits begin..end string with leading content" $ do
-      split "leading/*<begin#*/strings/*#end>*/" `shouldBe` Right ["strings"]
+      split "leading/*<foo#*/strings/*#end>*/" `shouldBe` Right [["foo", "strings"]]
 
     it "splits multiple begin..end string" $ do
-      split "/*<begin#*/strings/*#end>*//*<begin#*/strongs/*#end>*/" `shouldBe` Right ["strings", "strongs"]
+      split "/*<foo#*/strings/*#end>*//*<bar#*/strongs/*#end>*/" `shouldBe` Right [["foo", "strings"], ["bar", "strongs"]]
 
     it "splits multiple begin..end string strings with spaces and spureuos content" $ do
-      split "/*<begin#*/strings for all/*#end>*/trailing/*<begin#*/strongs/*#end>*/" `shouldBe` Right ["strings for all", "strongs"]
+      split "/*<foo#*/strings for all/*#end>*/trailing/*<bar#*/strongs/*#end>*/" `shouldBe` Right [["foo", "strings for all"], ["bar", "strongs"]]
 
     it "splits incomplete sections" $ do
-      split "/*<begin#*/strings/*#end>*/aaaa/*<begin#*/moar" `shouldBe` Right ["strings"]
+      split "/*<foo#*/strings/*#end>*/aaaa/*<begin#*/moar" `shouldBe` Right [["foo","strings"]]
+
