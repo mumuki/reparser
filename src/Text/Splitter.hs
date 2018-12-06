@@ -13,10 +13,16 @@ type Splitter = ParsecParser [String]
 split = parse spl ""
 
 spl :: Splitter
-spl =  many section
+spl =  many (try section) <* trailing
 
+begin :: ParsecParser String
 begin = string "/*<begin#*/"
+
+end   :: ParsecParser String
 end   = string "/*#end>*/"
+
+trailing :: ParsecParser String
+trailing = many anyChar
 
 section :: ParsecParser String
 section =  manyTill anyChar (try begin) *> manyTill anyChar (try end)

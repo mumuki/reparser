@@ -25,3 +25,6 @@ spec = do
 
     it "splits multiple begin..end string strings with spaces and spureuos content" $ do
       split "/*<begin#*/strings for all/*#end>*/trailing/*<begin#*/strongs/*#end>*/" `shouldBe` Right ["strings for all", "strongs"]
+
+    it "splits incomplete sections" $ do
+      split "/*<begin#*/strings/*#end>*/aaaa/*<begin#*/moar" `shouldBe` Right ["strings"]
